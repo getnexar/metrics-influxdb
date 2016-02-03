@@ -6,6 +6,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
 import java.util.Collection;
 
+import java.lang.Throwable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,22 +32,34 @@ public class UDPInlinerSender extends QueueableSender {
         if (measures.isEmpty()) {
             return true;
         }
-
-        DatagramChannel channel = DatagramChannel.open();;
+        DatagramChannel channel = null;
+        try {
+          channel = DatagramChannel.open();
+        } catch (IOException e) {
+          LOGGER.info("failed to send {} mesures to UDP[{}:{}], {}", measures.size(), serverAddress.getHostString(), serverAddress.getPort(), e.getMessage(), e);
+          returnValue = false;
+        }
+        int errorsCounter = 0;
         for (Measurement measure: measures) {
           String measuresAsString = inliner.inline(measure);
-          try {
+
             if (LOGGER.isDebugEnabled()) {
               LOGGER.debug("measurements being sent:\n{}", measuresAsString);
             }
             ByteBuffer buffer = ByteBuffer.wrap(measuresAsString.getBytes(Miscellaneous.UTF8));
-            channel.send(buffer, serverAddress);
-            LOGGER.debug("{} measurements sent to UDP[{}:{}]", measures.size(), serverAddress.getHostString(), serverAddress.getPort());
-          } catch (IOException e) {
-            LOGGER.info("failed to send {} mesures to UDP[{}:{}], {}", measures.size(), serverAddress.getHostString(), serverAddress.getPort(), e.getMessage(), e);
-            returnValue = false;
-          }
+            try {
+              channel.send(buffer, serverAddress);
+            } catch (Throwable sendException) {
+              errorsCounter++;
+            }
         }
-      return returnValue;
+        LOGGER.debug("{} measurements sent to UDP[{}:{}] with {} errors", measures.size(), serverAddress.getHostString(), serverAddress.getPort(), errorsCounter);
+
+        try {
+          channel.disconnect();
+        } catch (IOException ioException) {
+          LOGGER.error("channel discnnect throws an exception", ioException);
+        }
+        return returnValue;
     }
 }
