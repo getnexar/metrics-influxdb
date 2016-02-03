@@ -31,15 +31,14 @@ public class UDPInlinerSender extends QueueableSender {
         if (measures.isEmpty()) {
             return true;
         }
-        for (Measurement measure: measures) {
-          DatagramChannel channel = null;
 
+        DatagramChannel channel = DatagramChannel.open();;
+        for (Measurement measure: measures) {
           String measuresAsString = inliner.inline(measure);
           try {
             if (LOGGER.isDebugEnabled()) {
               LOGGER.debug("measurements being sent:\n{}", measuresAsString);
             }
-            channel = DatagramChannel.open();
             ByteBuffer buffer = ByteBuffer.wrap(measuresAsString.getBytes(Miscellaneous.UTF8));
             channel.send(buffer, serverAddress);
             LOGGER.debug("{} measurements sent to UDP[{}:{}]", measures.size(), serverAddress.getHostString(), serverAddress.getPort());
