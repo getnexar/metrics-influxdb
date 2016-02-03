@@ -7,21 +7,21 @@
 		<version>7</version>
 	</parent>
 
-	<groupId>com.github.davidb</groupId>
+	<groupId>com.github.getnexar</groupId>
 	<artifactId>metrics-influxdb</artifactId>
 	<packaging>bundle</packaging>
-	<version>0.8.0-SNAPSHOT</version>
+	<version>0.8.1-SNAPSHOT</version>
 	<name>${project.artifactId}</name>
 	<description>A reporter for metrics which announces measurements to an InfluxDB server.</description>
-	<url>https://github.com/davidB/metrics-influxdb</url>
+	<url>https://github.com/getnexar/metrics-influxdb</url>
 	<inceptionYear>2014</inceptionYear>
 	<scm>
-		<connection>scm:git:git://github.com/davidB/${project.artifactId}.git</connection>
-		<developerConnection>scm:git:git@github.com:davidB/${project.artifactId}.git</developerConnection>
-		<url>https://github.com/davidB/${project.artifactId}/</url>
+		<connection>scm:git:git://github.com/getnexar/${project.artifactId}.git</connection>
+		<developerConnection>scm:git:git@github.com:getnexar/${project.artifactId}.git</developerConnection>
+		<url>https://github.com/getnexar/${project.artifactId}/</url>
 	</scm>
 	<issueManagement>
-		<url>http://github.com/davidB/${project.artifactId}/issues#issue/</url>
+		<url>http://github.com/getnexar/${project.artifactId}/issues#issue/</url>
 		<system>github</system>
 	</issueManagement>
 	<developers>
