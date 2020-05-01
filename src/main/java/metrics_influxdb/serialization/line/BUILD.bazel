@@ -1,0 +1,4 @@
+
+sources(
+    visibility = ["//metrics-influxdb/src/main/java/metrics_influxdb:__pkg__"]
+)

@@ -1,0 +1,22 @@
+package(default_visibility = ["//visibility:public"])
+java_library(
+
+    name = "agg=._measurements_serialization/line",
+    srcs = [
+        "//metrics-influxdb/src/main/java/metrics_influxdb/measurements:sources" , 
+        "//metrics-influxdb/src/main/java/metrics_influxdb/serialization/line:sources" , 
+        "//metrics-influxdb/src/main/java/metrics_influxdb:sources"
+    ],
+    deps = [
+        "//metrics-influxdb/src/main/java/metrics_influxdb/api/measurements:measurements" , 
+        "//metrics-influxdb/src/main/java/metrics_influxdb/api/protocols:protocols" , 
+        "//metrics-influxdb/src/main/java/metrics_influxdb/misc:misc" , 
+        "//metrics-influxdb:main_dependencies"
+    ],
+    runtime_deps = [
+        
+    ],
+    
+)
+
+sources()

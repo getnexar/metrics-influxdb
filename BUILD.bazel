@@ -1,0 +1,35 @@
+package(default_visibility = ["//visibility:public"])
+
+java_library(
+    name = "metrics-influxdb",
+    exports = [
+        ":main_dependencies",
+        "//metrics-influxdb/src/main/java/metrics_influxdb:agg=._measurements_serialization/line",
+    ],
+)
+
+java_library(
+    name = "main_dependencies",
+    exports = [
+        "@io_dropwizard_metrics_metrics_core",
+        "@org_slf4j_slf4j_api"
+    ],
+)
+     
+
+
+java_library(
+    name = "tests_dependencies",
+    testonly = 1,
+    exports = [
+        "@junit_junit",
+        "@org_easytesting_fest_assert_core",
+        "@org_hamcrest_hamcrest_library",
+        "@org_mockito_mockito_all",
+        "@org_slf4j_slf4j_simple",
+        "main_dependencies"
+    ],
+    runtime_deps = [
+        "//metrics-influxdb/src/test/resources:resources"
+    ],
+)

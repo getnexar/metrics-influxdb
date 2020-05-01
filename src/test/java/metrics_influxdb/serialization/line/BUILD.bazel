@@ -1,0 +1,27 @@
+package(default_visibility = ["//visibility:public"])
+java_library(
+    name = "line",
+    srcs = [
+        "//metrics-influxdb/src/test/java/metrics_influxdb/serialization/line:sources"
+    ],
+    deps = [
+        "//metrics-influxdb/src/main/java/metrics_influxdb:agg=._measurements_serialization/line" , 
+        "//metrics-influxdb:tests_dependencies"
+    ],
+    runtime_deps = [
+        
+    ],
+        testonly = 1,
+)
+
+java_test_discovery(
+    name = "line_test_discovery",
+    tests_from = [":line"],
+    size = "small",
+    print_discovered_classes = True,
+    suffixes = ["Test", "Tests", "IT", "E2E"],
+    prefixes = ["Test", "Tests", "IT", "E2E"],
+    testonly = 1
+)
+
+sources()

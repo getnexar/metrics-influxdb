@@ -1,0 +1,17 @@
+package(default_visibility = ["//visibility:public"])
+java_library(
+
+    name = "protocols",
+    srcs = [
+        "//metrics-influxdb/src/main/java/metrics_influxdb/api/protocols:sources"
+    ],
+    deps = [
+        "//metrics-influxdb:main_dependencies"
+    ],
+    runtime_deps = [
+        
+    ],
+    
+)
+
+sources()
